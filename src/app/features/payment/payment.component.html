@@ -1,0 +1,40 @@
+<form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+  <!-- Card Scheme Dropdown -->
+  <div>
+    <label for="cardSchemeId">Card Scheme</label>
+    <select formControlName="cardSchemeId" id="cardSchemeId">
+      <option value="">-Select-</option> 
+      @for (card of cardListDropdown; track card.id) {               
+        <option [value]="card.id">{{ card.name }}</option>        
+      }      
+    </select>    
+    <app-form-error [control]="cardSchemeIdControl" [errorMessages]="PAYMENT_ERROR_MESSAGES"></app-form-error>
+  </div>
+  <!-- Card Number Field -->  
+  <div>
+    <label for="cardNumber">Card Number</label>
+    <input type="text" formControlName="cardNumber" id="cardNumber">
+    <app-form-error [control]="cardNumberControl" [errorMessages]="PAYMENT_ERROR_MESSAGES"></app-form-error>     
+  </div>
+  <!-- Expiry Field -->     
+  <div>
+    <label for="expiry">Expiry</label>
+    <input type="text" formControlName="expiry" id="expiry">
+    <app-form-error [control]="expiryControl" [errorMessages]="PAYMENT_ERROR_MESSAGES"></app-form-error> 
+  </div>
+  <!-- Name Field -->
+  <div>
+    <label for="name">Name</label>
+    <input type="text" formControlName="name" id="name"> 
+    <app-form-error [control]="nameControl" [errorMessages]="PAYMENT_ERROR_MESSAGES"></app-form-error> 
+  </div>
+  <!-- Email Field -->
+  <div>
+    <label for="email">Email</label>
+    <input type="email" formControlName="email" id="email">   
+    <app-form-error [control]="emailControl" [errorMessages]="PAYMENT_ERROR_MESSAGES"></app-form-error>
+  </div>
+  <!-- Submit Button -->
+    <button type="submit">Confirm Payment</button>    
+</form>
+  

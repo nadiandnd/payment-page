@@ -1,0 +1,7 @@
+<div class="error-container">
+    @if(message$ | async) {
+        <p>{{ message$ | async }}</p>
+    } @else {
+        <p>Payment Failed</p>
+    }
+</div>
