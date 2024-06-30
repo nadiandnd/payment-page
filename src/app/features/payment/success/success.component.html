@@ -1,5 +1,9 @@
 <div class="success-container">
-    <p>{{ message$ | async }}</p>
-    <p>Invoice Number: {{ invoice$ | async }}</p>
+    @if(message$ | async) {
+        <p>{{ message$ | async }}</p>
+        <p>Invoice Number: {{ invoice$ | async }}</p>
+    } @else {
+        <p>Payment Success</p>
+    }
 </div>
   

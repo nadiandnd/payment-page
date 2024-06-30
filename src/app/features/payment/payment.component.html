@@ -1,40 +1,53 @@
-<form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+<div class="form-container">
+  <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
   <!-- Card Scheme Dropdown -->
-  <div>
-    <label for="cardSchemeId">Card Scheme</label>
-    <select formControlName="cardSchemeId" id="cardSchemeId">
-      <option value="">-Select-</option> 
-      @for (card of cardListDropdown; track card.id) {               
-        <option [value]="card.id">{{ card.name }}</option>        
-      }      
-    </select>    
-    <app-form-error [control]="cardSchemeIdControl" [errorMessages]="PAYMENT_ERROR_MESSAGES"></app-form-error>
-  </div>
-  <!-- Card Number Field -->  
-  <div>
-    <label for="cardNumber">Card Number</label>
-    <input type="text" formControlName="cardNumber" id="cardNumber">
-    <app-form-error [control]="cardNumberControl" [errorMessages]="PAYMENT_ERROR_MESSAGES"></app-form-error>     
-  </div>
-  <!-- Expiry Field -->     
-  <div>
-    <label for="expiry">Expiry</label>
-    <input type="text" formControlName="expiry" id="expiry">
-    <app-form-error [control]="expiryControl" [errorMessages]="PAYMENT_ERROR_MESSAGES"></app-form-error> 
-  </div>
-  <!-- Name Field -->
-  <div>
-    <label for="name">Name</label>
-    <input type="text" formControlName="name" id="name"> 
-    <app-form-error [control]="nameControl" [errorMessages]="PAYMENT_ERROR_MESSAGES"></app-form-error> 
-  </div>
-  <!-- Email Field -->
-  <div>
-    <label for="email">Email</label>
-    <input type="email" formControlName="email" id="email">   
-    <app-form-error [control]="emailControl" [errorMessages]="PAYMENT_ERROR_MESSAGES"></app-form-error>
-  </div>
-  <!-- Submit Button -->
-    <button type="submit">Confirm Payment</button>    
-</form>
+    <div class="form-group">
+      <label for="cardSchemeId">Card Scheme*</label>
+      <mat-form-field appearance="fill">    
+        <mat-select formControlName="cardSchemeId" id="cardSchemeId">
+          <mat-option value="">-Select-</mat-option>
+          @for (card of cardListDropdown; track card.id) {               
+            <mat-option [value]="card.id">{{ card.name }}</mat-option>      
+          }  
+        </mat-select>
+        <app-form-error [control]="cardSchemeIdControl" [errorMessages]="PAYMENT_ERROR_MESSAGES"></app-form-error>
+      </mat-form-field>    
+    </div>
+    <!-- Card Number Field -->  
+    <div class="form-group">
+      <label for="cardNumber">Card Number*</label>
+      <mat-form-field appearance="fill">       
+        <input matInput type="text" formControlName="cardNumber" id="cardNumber" placeholder="Card Number">
+        <app-form-error [control]="cardNumberControl" [errorMessages]="PAYMENT_ERROR_MESSAGES"></app-form-error>
+      </mat-form-field>    
+    </div>
+    <!-- Expiry Field --> 
+    <div class="form-group">
+      <label for="expiry">Expiry*</label>
+      <mat-form-field appearance="fill">        
+        <input matInput type="text" formControlName="expiry" id="expiry" placeholder="MM/YY">
+        <app-form-error [control]="expiryControl" [errorMessages]="PAYMENT_ERROR_MESSAGES"></app-form-error>
+      </mat-form-field>    
+    </div> 
+    <!-- Name Field -->  
+    <div class="form-group">    
+      <label for="name">Name*</label>
+      <mat-form-field appearance="fill">      
+        <input matInput type="text" formControlName="name" id="name" placeholder="Name">
+        <app-form-error [control]="nameControl" [errorMessages]="PAYMENT_ERROR_MESSAGES"></app-form-error>
+      </mat-form-field>    
+    </div>
+    <!-- Email Field -->
+    <div class="form-group">
+      <label for="email">Email</label>
+      <mat-form-field appearance="fill"> 
+        <input matInput type="email" formControlName="email" id="email" placeholder="Email">
+        <app-form-error [control]="emailControl" [errorMessages]="PAYMENT_ERROR_MESSAGES"></app-form-error>
+      </mat-form-field>    
+    </div>  
+    <!-- Submit Button -->
+    <button mat-raised-button color="primary" type="submit" [disabled]="paymentForm.invalid">Confirm Payment</button>    
+  </form>
+</div>
+
   

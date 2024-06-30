@@ -8,13 +8,24 @@ import { PaymentFormValidators } from '../../shared/utility/validators';
 import { filterAndMapCardSchemes } from '../../shared/utility/card-scheme-mapper';
 import { FormErrorComponent } from "../../shared/component/form-error/form-error.component";
 import { PAYMENT_ERROR_MESSAGES } from '../../shared/utility/constants';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
     selector: 'app-payment',
     standalone: true,
     templateUrl: './payment.component.html',
     styleUrl: './payment.component.scss',
-    imports: [ReactiveFormsModule, FormErrorComponent]
+    imports: [
+      ReactiveFormsModule, 
+      FormErrorComponent,
+      MatFormFieldModule,
+      MatInputModule,
+      MatSelectModule,
+      MatButtonModule
+    ]
 })
 export class PaymentComponent implements OnInit {
 

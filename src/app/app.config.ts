@@ -12,6 +12,7 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { provideHttpClient } from '@angular/common/http';
 import { PaymentService } from './services/payment.service';
 import { MockPaymentService } from './services/mock-payment.service';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,6 +28,6 @@ export const appConfig: ApplicationConfig = {
       disabled: environment.production
     })),
     //{ provide: PaymentService, useClass: PaymentService } // Uncomment to use PaymentService
-    { provide: PaymentService, useClass: MockPaymentService }
+    { provide: PaymentService, useClass: MockPaymentService }, provideAnimationsAsync()
   ]
 };
