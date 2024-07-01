@@ -4,6 +4,7 @@ import { PaymentService } from './payment.service';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
+import { mockResp } from './mock-payment.service';
 
 describe('PaymentService', () => {
   let service: PaymentService;
@@ -28,34 +29,16 @@ describe('PaymentService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should fetch card list', () => {
-    const mockCardList = [
-      {
-        "id": 1,
-        "name": "visa"
-      },
-      {
-        "id": 2,
-        "name": "mastercard"
-      },
-      {
-        "id": 3,
-        "name": "jcb"
-      },
-      {
-        "id": 4,
-        "name": "amex"
-      }
-    ];
+  it('should fetch card list', () => {  
 
     service.getCardList().subscribe(cards => {
-      expect(cards.length).toBe(4);
-      expect(cards).toEqual(mockCardList);
+      expect(cards.length).toBe(6);
+      expect(cards).toEqual(mockResp);
     });
 
     const req = httpMock.expectOne(`${environment.apiUrl}/masterdata/cardschemes`);
     expect(req.request.method).toBe('GET');
-    req.flush(mockCardList);
+    req.flush(mockResp);
   });
 
   it('should submit payment', () => {

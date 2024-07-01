@@ -12,12 +12,14 @@ export class MockPaymentService {
       return of({
         message: 'Payment Successful',
         responseCode: '000',
-        invoice: 'ABCD1234'
+        invoiceNo: 'ABCD1234'
       }).pipe(delay(1000));
     } else {
       return throwError(() => ({
-        message: 'Invalid payment detail.',
-        responseCode: '999'
+        error: {
+          message: 'Invalid payment detail.',
+          responseCode: '999'
+        }
       })).pipe(delay(1000));
     }
   }
@@ -27,4 +29,4 @@ export class MockPaymentService {
   }
 }
 
-const mockResp = [{"id":1,"name":"visa"},{"id":2,"name":"mastercard"},{"id":3,"name":"jcb"},{"id":4,"name":"upi"},{"id":5,"name":"amex"},{"id":6,"name":"dci"}];
+export const mockResp = [{"id":1,"name":"visa"},{"id":2,"name":"mastercard"},{"id":3,"name":"jcb"},{"id":4,"name":"upi"},{"id":5,"name":"amex"},{"id":6,"name":"dci"}];

@@ -100,7 +100,7 @@ describe('PaymentComponent', () => {
     const cardSchemeIdControl = component.paymentForm.get('cardSchemeId');
     const cardNumberControl = component.paymentForm.get('cardNumber');
 
-    cardSchemeIdControl?.setValue('4'); // Amex
+    cardSchemeIdControl?.setValue('5'); // Amex
     component.checkValidCardNumber();
 
     // Test Amex (15 digits)

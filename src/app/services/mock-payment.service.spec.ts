@@ -20,8 +20,8 @@ describe('MockPaymentService', () => {
       cardSchemeId: 1,
       cardNumber: '1234567890123456',
       expiry: '12/23',
-      name: 'John Doe',
-      email: 'john.doe@example.com'
+      name: 'Name Test',
+      email: 'test@example.com'
     };
 
     service.submitPayment(mockPayload).subscribe({
@@ -42,8 +42,8 @@ describe('MockPaymentService', () => {
       cardSchemeId: 3,
       cardNumber: '1234567890123456',
       expiry: '12/23',
-      name: 'John Doe',
-      email: 'john.doe@example.com'
+      name: 'Name Test',
+      email: 'test@example.com'
     };
 
     service.submitPayment(mockPayload).subscribe({
@@ -51,8 +51,8 @@ describe('MockPaymentService', () => {
         fail('Expected error response, but got success response');
       },
       error: (error) => {
-        expect(error.message).toEqual('Invalid payment detail.');
-        expect(error.responseCode).toEqual('999');
+        expect(error.error.message).toEqual('Invalid payment detail.');
+        expect(error.error.responseCode).toEqual('999');
       }
     });
   });
@@ -60,7 +60,7 @@ describe('MockPaymentService', () => {
   it('should get card list successfully', () => {
     service.getCardList().subscribe({
       next: (cardList) => {
-        expect(cardList.length).toBe(4);
+        expect(cardList.length).toBe(6);
       },
       error: (error) => {
         fail('Should not have thrown an error');
