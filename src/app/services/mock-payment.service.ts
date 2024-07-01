@@ -23,23 +23,8 @@ export class MockPaymentService {
   }
 
   getCardList(): Observable<{ id: number, name: string }[]> {
-    return of([
-      {
-        "id": 1,
-        "name": "visa"
-      },
-      {
-        "id": 2,
-        "name": "mastercard"
-      },
-      {
-        "id": 3,
-        "name": "jcb"
-      },
-      {
-        "id": 4,
-        "name": "amex"
-      }
-    ]);
+    return of(mockResp);
   }
 }
+
+const mockResp = [{"id":1,"name":"visa"},{"id":2,"name":"mastercard"},{"id":3,"name":"jcb"},{"id":4,"name":"upi"},{"id":5,"name":"amex"},{"id":6,"name":"dci"}];

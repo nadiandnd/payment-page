@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 
+
 @Component({
     selector: 'app-payment',
     standalone: true,
@@ -58,8 +59,7 @@ export class PaymentComponent implements OnInit {
       if (cardNumberControl) {
         cardNumberControl.clearValidators();
         cardNumberControl.setValidators([Validators.required, PaymentFormValidators.cardNumberLength(value || ''), PaymentFormValidators.cardNumber]);
-        cardNumberControl.updateValueAndValidity();
-        console.log(cardNumberControl.errors, value);
+        cardNumberControl.updateValueAndValidity(); 
       }
     });
   }

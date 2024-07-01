@@ -55,7 +55,7 @@ export class PaymentState {
         ctx.patchState({
           loading: false,
           successMessage: result.message,
-          invoice: result.invoice,
+          invoice: result.invoiceNo,
           errorMessage: ''
         });
         this.router.navigate(['/success']);
@@ -65,9 +65,8 @@ export class PaymentState {
           loading: false,
           successMessage: '',
           invoice: '',
-          errorMessage: (error.responseCode === '999') ? error.message : 'Payment Failed'
-        });
-        console.log(error)
+          errorMessage: (error.error.responseCode === '999') ? error.error.message : 'Payment Failed'
+        });     
         this.router.navigate(['/error']);
         return of(error);        
       })

@@ -27,7 +27,8 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(NgxsLoggerPluginModule.forRoot({
       disabled: environment.production
     })),
-    //{ provide: PaymentService, useClass: PaymentService } // Uncomment to use PaymentService
-    { provide: PaymentService, useClass: MockPaymentService }, provideAnimationsAsync()
+    provideAnimationsAsync(),
+    { provide: PaymentService, useClass: PaymentService }, // Uncomment to use PaymentService
+    // { provide: PaymentService, useClass: MockPaymentService } // Uncomment to use MockPaymentService
   ]
 };

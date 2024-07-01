@@ -16,7 +16,7 @@ export const PaymentFormValidators = {
   cardNumberLength: (cardSchemeId: number | string): ValidatorFn =>
     (control: AbstractControl): ValidationErrors | null => {
       const value = control?.value?.toString() ?? '';
-      if (cardSchemeId == 4) {
+      if (cardSchemeId == 5) {
         return value.length === 15 ? null : { invalidCardNumber: true };
       } else {
         return value.length === 16 ? null : { invalidCardNumber: true };
