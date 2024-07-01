@@ -49,6 +49,19 @@ export class PaymentComponent implements OnInit {
         this.cardListDropdown = data;
       })
     ).subscribe();
+    this.checkValidCardNumber();   
+  }
+
+  checkValidCardNumber() {
+    this.paymentForm.get('cardSchemeId')?.valueChanges.subscribe(value => {           
+      const cardNumberControl = this.paymentForm.get('cardNumber');
+      if (cardNumberControl) {
+        cardNumberControl.clearValidators();
+        cardNumberControl.setValidators([Validators.required, PaymentFormValidators.cardNumberLength(value || ''), PaymentFormValidators.cardNumber]);
+        cardNumberControl.updateValueAndValidity();
+        console.log(cardNumberControl.errors, value);
+      }
+    });
   }
 
   onSubmit(): void {

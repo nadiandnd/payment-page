@@ -1,4 +1,4 @@
-import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { CARD_SCHEME_ID_PATTERN, CARD_NUMBER_PATTERN, EXPIRY_PATTERN, EMAIL_PATTERN, NAME_PATTERN } from './constants';
 
 export const PaymentFormValidators = {
@@ -9,10 +9,19 @@ export const PaymentFormValidators = {
   }) as ValidatorFn,  
   cardNumber: ((control: AbstractControl) => {
     const value = control?.value?.toString() ?? '';
-    const isValid = CARD_NUMBER_PATTERN.test(value) && value.length >= 15 && value.length <= 16;
+    const isValid = CARD_NUMBER_PATTERN.test(value);
 
     return !isValid ? { invalidCardNumber: true } : null;
   }) as ValidatorFn,
+  cardNumberLength: (cardSchemeId: number | string): ValidatorFn =>
+    (control: AbstractControl): ValidationErrors | null => {
+      const value = control?.value?.toString() ?? '';
+      if (cardSchemeId == 4) {
+        return value.length === 15 ? null : { invalidCardNumber: true };
+      } else {
+        return value.length === 16 ? null : { invalidCardNumber: true };
+      }
+    },  
   expiry: ((control: AbstractControl) => {
     return !EXPIRY_PATTERN.test(control?.value ?? '')
       ? { invalidExpiry: true }

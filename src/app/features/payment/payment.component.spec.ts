@@ -95,4 +95,29 @@ describe('PaymentComponent', () => {
     expect(component.nameControl).toBe(component.paymentForm.get('name'));
     expect(component.emailControl).toBe(component.paymentForm.get('email'));
   });
+
+  it('should update cardNumber validator based on cardSchemeId changes', () => {
+    const cardSchemeIdControl = component.paymentForm.get('cardSchemeId');
+    const cardNumberControl = component.paymentForm.get('cardNumber');
+
+    cardSchemeIdControl?.setValue('4'); // Amex
+    component.checkValidCardNumber();
+
+    // Test Amex (15 digits)
+    cardNumberControl?.setValue('123456789012345');
+    expect(cardNumberControl?.valid).toBe(true);
+
+    cardNumberControl?.setValue('12345678901234');
+    expect(cardNumberControl?.valid).toBe(false);
+
+    // Change card scheme to Visa/Mastercard (16 digits)
+    cardSchemeIdControl?.setValue('1'); // Visa
+    fixture.detectChanges();
+
+    cardNumberControl?.setValue('1234567890123456');
+    expect(cardNumberControl?.valid).toBe(true);
+
+    cardNumberControl?.setValue('123456789012345');
+    expect(cardNumberControl?.valid).toBe(false);
+  });
 });
