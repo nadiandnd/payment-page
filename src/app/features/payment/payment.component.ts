@@ -1,9 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { SubmitPayment } from '../../store/payment.actions';
 import { PaymentService } from '../../services/payment.service';
-import { map, tap } from 'rxjs';
+import { Subject, map, takeUntil, tap } from 'rxjs';
 import { PaymentFormValidators } from '../../shared/utility/validators';
 import { filterAndMapCardSchemes } from '../../shared/utility/card-scheme-mapper';
 import { FormErrorComponent } from "../../shared/component/form-error/form-error.component";
@@ -28,7 +28,7 @@ import { MatButtonModule } from '@angular/material/button';
       MatButtonModule
     ]
 })
-export class PaymentComponent implements OnInit {
+export class PaymentComponent implements OnInit, OnDestroy {
 
   private fb = inject(FormBuilder);
   private store = inject(Store);
@@ -42,9 +42,11 @@ export class PaymentComponent implements OnInit {
     email: ['', [PaymentFormValidators.email, PaymentFormValidators.maxLength(50)]]
   });
   public PAYMENT_ERROR_MESSAGES = PAYMENT_ERROR_MESSAGES;
+  private notifier = new Subject(); 
 
   ngOnInit(): void {
     this.paymentService.getCardList().pipe(
+      takeUntil(this.notifier),
       map(data => filterAndMapCardSchemes(data)),
       tap(data => {
         this.cardListDropdown = data;
@@ -92,5 +94,9 @@ export class PaymentComponent implements OnInit {
   get emailControl(): AbstractControl | null {
     return this.paymentForm.get('email');
   }  
+
+  ngOnDestroy(): void {    
+    this.notifier.complete();
+  }
 
 }
